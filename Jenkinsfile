@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'aj-node'
+        label 'ajtest-node'
     }
 
     stages {
