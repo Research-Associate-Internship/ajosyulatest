@@ -1,10 +1,10 @@
 pipeline {
     agent {
         label 'ajtest-node'
-        environment {
+    }
+    environment {
             AWS_REGION='us-east-1'
             SECRET_ID='ajsnyktoken'
-        }
     }
 
     stages {
