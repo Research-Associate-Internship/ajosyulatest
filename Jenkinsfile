@@ -2,10 +2,6 @@ pipeline {
     agent {
         label 'ajtest-node'
     }
-    environment {
-        AWS_REGION='us-east-1'
-        SECRET_ID='ajsnyktoken'
-    }
 
     stages {
         stage('checkout') {
@@ -21,10 +17,8 @@ pipeline {
         stage('sast-testing') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: env.SECRET_ID,variable: 'SECRET_VALUE')]) {
-                        /*snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${SECRET_VALUE}"*/
-                        sh 'echo $SECRET_VALUE'
-                        sh 'echo $SECRET_ID'
+                    withCredentials([string(credentialsId: 'ajsnyk', variable: 'SECRET_VALUE')]) {
+                        snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${SECRET_VALUE}"
                     }
                 }
         }
