@@ -22,7 +22,9 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: env.SECRET_ID,variable: 'SECRET_VALUE')]) {
-                        snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${SECRET_VALUE}"
+                        /*snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${SECRET_VALUE}"*/
+                        sh 'echo $SECRET_VALUE'
+                        sh 'echo $SECRET_ID'
                     }
                 }
         }
