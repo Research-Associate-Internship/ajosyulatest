@@ -4,7 +4,7 @@ pipeline {
     }
     environment {
         AWS_REGION='us-east-1'
-        SECRET_ID='ajsnyk'
+        SECRET_ID='ajsnyktoken'
     }
 
     stages {
