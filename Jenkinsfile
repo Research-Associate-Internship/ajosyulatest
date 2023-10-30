@@ -2,6 +2,9 @@ pipeline {
     agent {
         label 'ajtest-node'
     }
+    environment {
+        SECRET_VALUE = credentials('ajsnyktoken')
+    }
 
     stages {
         stage('checkout') {
@@ -16,10 +19,10 @@ pipeline {
         }
         stage('sast-testing') {
             steps {
-                script {
-                    withCredentials([string(credentialsId: 'ajsnyktoken', variable: 'SECRET_VALUE')]) {
-                        snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: ${SECRET_VALUE}
-                    }
+                /*script {*/
+                    /*withCredentials([string(credentialsId: 'ajsnyktoken', variable: 'SECRET_VALUE')]) {*/
+                        snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: '${env.SECRET_VALUE}'
+                    /*}*/
                 }
         }
         }
