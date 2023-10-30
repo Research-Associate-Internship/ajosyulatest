@@ -3,7 +3,7 @@ pipeline {
         label 'ajtest-node'
     }
     environment {
-        SECRET_VALUE = credentials('ajsnyktoken')
+        SECRET_VALUE = credentials('ajsnyk')
     }
 
     stages {
