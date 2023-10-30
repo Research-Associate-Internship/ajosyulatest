@@ -2,10 +2,6 @@ pipeline {
     agent {
         label 'ajtest-node'
     }
-    environment {
-        SECRET_VALUE = credentials('ajsnyktoken')
-    }
-
     stages {
         stage('checkout') {
             steps {
