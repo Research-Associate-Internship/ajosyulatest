@@ -3,7 +3,7 @@ pipeline {
         label 'ajtest-node'
     }
     environment {
-        SECRET_VALUE = credentials('ajsnyk')
+        SECRET_VALUE = credentials('ajsnyktoken')
     }
 
     stages {
@@ -19,10 +19,9 @@ pipeline {
         }
         stage('sast-testing') {
             steps {
-                /*script {*/
-                    /*withCredentials([string(credentialsId: 'ajsnyktoken', variable: 'SECRET_VALUE')]) {*/
+                    withCredentials([awsSecretsManager(credentialsId: 'ajsnyktoken', variable: 'SECRET_VALUE')]) {
                         snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: '${env.SECRET_VALUE}'
-                    /*}*/
+                    }
                 }
         }
         }
