@@ -3,8 +3,8 @@ pipeline {
         label 'ajtest-node'
     }
     environment {
-            AWS_REGION='us-east-1'
-            SECRET_ID='ajsnyktoken'
+        AWS_REGION='us-east-1'
+        SECRET_ID='ajsnyktoken'
     }
 
     stages {
@@ -21,11 +21,10 @@ pipeline {
         stage('sast-testing') {
             steps {
                 script {
-                    withAWS(region: env.AWS_REGION, role: 'ajosyula-role') {
-                        def secretValue= awsSecretsManagerGetSecret(secretId: env.SECRET_ID)
+                    withCredentials([string(credentialsId: env.SECRET_ID,variable: 'SECRET_VALUE')]) {
+                        snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${SECRET_VALUE}"
                     }
                 }
-            snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: '${env.secretValue}'
         }
         }
         /*stage('run-application') {
@@ -44,9 +43,9 @@ pipeline {
                 sh 'docker stop $(docker ps -q)'
                 sh 'docker rm $(docker ps -a -q)'
             }
-        }
+        }*/
     }
-    post {
+    /*post {
         always {
             publishHTML(target: [
                 allowMissing:false,
@@ -56,6 +55,6 @@ pipeline {
                 reportFiles: 'JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}.html',
                 reportName: 'OWASP_ZAP_Scan_Report'
                 ])
-        }*/
-    }
+        }
+    }*/
 }
