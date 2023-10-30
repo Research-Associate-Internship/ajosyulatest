@@ -17,7 +17,7 @@ pipeline {
         stage('sast-testing') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'ajsnyk', variable: 'SECRET_VALUE')]) {
+                    withCredentials([string(credentialsId: 'ajsnyktoken', variable: 'SECRET_VALUE')]) {
                         snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${SECRET_VALUE}"
                     }
                 }
