@@ -20,7 +20,7 @@ pipeline {
                         sh 'echo $SNYK_API_KEY'
                     }
                 }
-                /*snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: snykapitoken*/
+                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: ${SNYK_API_KEY}
                 }
             }
         }
