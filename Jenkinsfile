@@ -8,27 +8,27 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Research-Associate-Internship/ajosyulatest.git']])
             }
         }
-        stage('build') {
+        /*stage('build') {
             steps {
                 sh 'npm install'
             }
-        }
+        }*/
         stage('fetch-secrets') {
             steps {
-                withCredentials([string(credentialsId: 'ajsnyktoken', variable: 'SNYK_API_KEY')]) {
                     script {
-                        sh 'echo $SNYK_API_KEY'
-                        env.SNYK_KEY= "${SNYK_API_KEY}"
+                        withCredentials([string(credentialsId: 'ajsnyktoken', variable: 'SNYK_API_KEY')]) {
+                            id= SNYK_API_KEY
 
                         }
-                    }
+                        sh 'echo $SNYK_API_KEY'
                 }
                 }
-        stage('sast-testing') { 
+        }
+        /*stage('sast-testing') { 
             steps {
                 snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: env.SNYK_KEY
         }
-        }
+        }*/
             }
         }
         /*stage('run-application') {
