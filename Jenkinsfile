@@ -24,7 +24,7 @@ pipeline {
                 }
         stage('sast-testing') { 
             steps {
-                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: '${SNYK_KEY}'
+                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: env.SNYK_KEY
         }
         }
             }
