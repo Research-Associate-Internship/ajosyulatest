@@ -20,7 +20,7 @@ pipeline {
                             id= SNYK_API_KEY
 
                         }
-                        sh 'echo $SNYK_API_KEY'
+                        echo "SnykKey: ${id}"
                 }
                 }
         }
