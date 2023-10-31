@@ -18,9 +18,12 @@ pipeline {
                 withCredentials([string(credentialsId: 'ajsnyktoken', variable: 'SNYK_API_KEY')]) {
                     script {
                         sh 'echo $SNYK_API_KEY'
+                        withEnv(['SNYK_API_KEY=$SNYK_API_KEY']) {
+                            sh 'snykSecurity failOnIssues: false, projectName: "juice-shop", snykInstallation: "SnykJ", snykTokenId: "${SNYK_API_KEY}"'
+
+                        }
                     }
                 }
-                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: '${SNYK_API_KEY}'
                 }
             }
         }
