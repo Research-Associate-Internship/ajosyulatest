@@ -16,7 +16,7 @@ pipeline {
         stage('fetch-secrets') {
             steps {
                     script {
-                        withCredentials([string(credentialsId: 'ajsnyktoken', variable: 'SNYK_API_KEY')]) {
+                        withCredentials([string(credentialsId: 'snykajtoken', variable: 'SNYK_API_KEY')]) {
                             id= SNYK_API_KEY
 
                         }
