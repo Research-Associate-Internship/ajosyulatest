@@ -15,12 +15,12 @@ pipeline {
         }
         stage('sast-testing') {
             steps {
-                script {
-                    def snykToken=null
-                    withCredentials([awsSecretsManager(credentialsId: 'snykajtoken', variable: 'SECRET_VALUE')]) {
-                        snykapitoken=sh(script:'echo $SECRET_VALUE',returnStdout:true).trim()
+                withCredentials([string(credentialsId: 'ajsnyktoken', variable: 'SNYK_API_KEY')]) {
+                    script {
+                        sh 'echo $SNYK_API_KEY'
                     }
-                    snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: snykapitoken
+                }
+                /*snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: snykapitoken*/
                 }
             }
         }
@@ -42,7 +42,7 @@ pipeline {
                 sh 'docker rm $(docker ps -a -q)'
             }
         }*/
-    }
+    /*}*/
     /*post {
         always {
             publishHTML(target: [
