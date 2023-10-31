@@ -13,20 +13,21 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('sast-testing') {
+        stage('fetch-secrets') {
             steps {
                 withCredentials([string(credentialsId: 'ajsnyktoken', variable: 'SNYK_API_KEY')]) {
                     script {
-                        sh 'echo $SNYK_API_KEY'
-                        withEnv(['SNYK_API_KEY=$SNYK_API_KEY']) {
-                            sh 'snykSecurity failOnIssues: false, projectName: "juice-shop", snykInstallation: "SnykJ", snykTokenId: "${SNYK_API_KEY}"'
-
+                        env.SNYK_KEY= "${SNYK_API_KEY}"
                         }
                     }
                 }
                 }
-            }
+        stage('sast-testing') { 
+            steps {
+                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: '${SNYK_KEY}'
         }
+        }
+            }
         }
         /*stage('run-application') {
             steps {
