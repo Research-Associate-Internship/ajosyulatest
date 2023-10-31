@@ -15,10 +15,14 @@ pipeline {
         }
         stage('sast-testing') {
             steps {
-                    withCredentials([awsSecretsManager(credentialsId: 'ajsnyktoken', variable: 'SECRET_VALUE')]) {
-                        snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: '${env.SECRET_VALUE}'
+                script {
+                    def snykToken=null
+                    withCredentials([awsSecretsManager(credentialsId: 'snykajtoken', variable: 'SECRET_VALUE')]) {
+                        snykapitoken=sh(script:'echo $SECRET_VALUE',returnStdout:true).trim()
                     }
+                    snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: snykapitoken
                 }
+            }
         }
         }
         /*stage('run-application') {
