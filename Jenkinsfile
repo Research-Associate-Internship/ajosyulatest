@@ -17,7 +17,9 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'ajsnyktoken', variable: 'SNYK_API_KEY')]) {
                     script {
+                        sh 'echo $SNYK_API_KEY'
                         env.SNYK_KEY= "${SNYK_API_KEY}"
+
                         }
                     }
                 }
