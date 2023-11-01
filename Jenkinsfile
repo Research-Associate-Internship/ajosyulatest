@@ -2,9 +2,9 @@ pipeline {
     agent {
         label 'ajtest-node'
     }
-    environment {
+    /*environment {
         SNYK_TOKEN= sh(returnStdout:true, script: 'aws secretsmanager get-secret-value --secret-id snykajtoken --query SecretString --output text').trim()
-    }
+    }*/
     stages {
         stage('checkout') {
             steps {
@@ -18,8 +18,7 @@ pipeline {
         }*/
         stage('sast-testing') { 
             steps {
-                sh """echo ${env.SNYK_TOKEN}"""
-                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${env.SNYK_TOKEN}"
+                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: 'SNYK_TOKEN'
 
                 }
                 
