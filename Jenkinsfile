@@ -23,7 +23,7 @@ pipeline {
                    env.SnykToken = $token
                 }
                 echo "${env.SnykToken}"*/
-                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${env.SNYK_TOKEN}"
+                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykToken: "${env.SNYK_TOKEN}"
             }
         }
         }
