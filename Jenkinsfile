@@ -17,7 +17,7 @@ pipeline {
             steps {
                 sh 'token=$(aws secretsmanager get-secret-value --secret-id snykajtoken | jq --raw-output '.SecretString')'
                 snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${token}"
-        }
+            }
         }
         }
 }
