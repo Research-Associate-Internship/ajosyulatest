@@ -11,27 +11,25 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Research-Associate-Internship/ajosyulatest.git']])
             }
         }
-        stage('build') {
+        /*stage('build') {
             steps {
                 sh 'npm install'
             }
-        }
+        }*/
         stage('sast-testing') { 
             steps {
-                /*script {
-                   sh 'token=$(aws secretsmanager get-secret-value --secret-id snykajtoken --query SecretString --output text)'
-                   env.SnykToken = $token
-                }
-                echo "${env.SnykToken}"*/
-                withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'TOKEN')]){
+                sh """echo ${env.SNYK_TOKEN}"""
+                /*withCredentials([string(credentialsId:'SNYK_TOKEN', variable: 'TOKEN')]) {
                     snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${TOKEN}"
+
+
+                }*/
 
                 }
                 
             }
         }
         }
-}
         /*stage('run-application') {
             steps {
                 sh 'docker run -d -p 80:3000 --name owasp bkimminich/juice-shop'
