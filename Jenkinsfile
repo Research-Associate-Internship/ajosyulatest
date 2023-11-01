@@ -23,8 +23,11 @@ pipeline {
                    env.SnykToken = $token
                 }
                 echo "${env.SnykToken}"*/
-                withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'TOKEN')])
-                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${TOKEN}"
+                withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'TOKEN')]){
+                    snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${TOKEN}"
+
+                }
+                
             }
         }
         }
