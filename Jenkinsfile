@@ -3,7 +3,7 @@ pipeline {
         label 'ajtest-node'
     }
     environment {
-        SNYK_TOKEN=credentials('snykajtoken')
+        SNYK_TOKEN= sh(returnStdout:true, script: 'aws secretsmanager get-secret-value --secret-id snykajtoken --query SecretString --output text').trim()
     }
     stages {
         stage('checkout') {
