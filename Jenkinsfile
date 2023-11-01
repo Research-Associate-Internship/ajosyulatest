@@ -8,18 +8,18 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Research-Associate-Internship/ajosyulatest.git']])
             }
         }
-        /*stage('build') {
+        stage('build') {
             steps {
                 sh 'npm install'
             }
-        }*/
+        }
         stage('sast-testing') { 
             steps {
                 script {
                    sh 'token=$(aws secretsmanager get-secret-value --secret-id snykajtoken --query SecretString --output text)'
                    sh 'echo $token'
                 }
-                /*snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${token}"*/
+                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${token}"
             }
         }
         }
