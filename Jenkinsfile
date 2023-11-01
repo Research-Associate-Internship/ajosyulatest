@@ -19,11 +19,7 @@ pipeline {
         stage('sast-testing') { 
             steps {
                 sh """echo ${env.SNYK_TOKEN}"""
-                /*withCredentials([string(credentialsId:'SNYK_TOKEN', variable: 'TOKEN')]) {
-                    snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${TOKEN}"
-
-
-                }*/
+                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: """${env.SNYK_TOKEN}"""
 
                 }
                 
