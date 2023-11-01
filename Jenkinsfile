@@ -24,12 +24,13 @@ pipeline {
             }*/
         stage('sast-testing') {
             steps {
-                script {
-                    sh "snyk auth ${env.SNYK_TOKEN}"
-                    sh "snyk test --json | snyk-to-html > /home/ubuntu/Snyk_Report_${BUILD_ID}.html"
+                """
+                set +x
+                snyk auth ${env.SNYK_TOKEN}
+                snyk test --json | snyk-to-html > /home/ubuntu/Snyk_Report_${BUILD_ID}.html
+                """
                 }
             }
-        }
         }
         }
         /*stage('run-application') {
