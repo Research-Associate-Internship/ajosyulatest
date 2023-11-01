@@ -2,6 +2,9 @@ pipeline {
     agent {
         label 'ajtest-node'
     }
+    environment {
+        SNYK_TOKEN=credentials('snykajtoken')
+    }
     stages {
         stage('checkout') {
             steps {
@@ -20,7 +23,7 @@ pipeline {
                    env.SnykToken = $token
                 }
                 echo "${env.SnykToken}"*/
-                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: '76f2ba88-c0b4-4196-8ccb-9dfabeea196e'
+                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: '${env.SNYK_TOKEN}'
             }
         }
         }
