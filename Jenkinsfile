@@ -17,9 +17,9 @@ pipeline {
             steps {
                 script {
                    sh 'token=$(aws secretsmanager get-secret-value --secret-id snykajtoken --query SecretString --output text)'
-                   sh 'echo $token'
+                   env.SnykToken = $token
                 }
-                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${token}"
+                snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${env.SnykToken}"
             }
         }
         }
