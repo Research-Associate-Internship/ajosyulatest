@@ -15,7 +15,10 @@ pipeline {
         }
         stage('sast-testing') { 
             steps {
-                sh 'token=$(aws secretsmanager get-secret-value --secret-id snykajtoken | jq --raw-output '.SecretString')'
+                script {
+                   token=$(aws secretsmanager get-secret-value --secret-id snykajtoken | jq --raw-output '.SecretString')
+                   echo $token 
+                }
                 snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: "${token}"
             }
         }
