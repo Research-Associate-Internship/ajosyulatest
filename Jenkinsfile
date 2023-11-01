@@ -24,7 +24,7 @@ pipeline {
             }*/
         stage('sast-testing') {
             steps {
-                """
+                sh """
                 set +x
                 snyk auth ${env.SNYK_TOKEN}
                 snyk test --json | snyk-to-html > /home/ubuntu/Snyk_Report_${BUILD_ID}.html
