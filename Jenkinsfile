@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'Jenkins-node'
+        label 'ajtest-node'
     }
     environment {
         SNYK_TOKEN = credentials('snykajtoken')
