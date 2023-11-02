@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'ajtest-node'
+        label 'ec2-node'
     }
     environment {
         SNYK_TOKEN= sh(returnStdout:true, script: 'aws secretsmanager get-secret-value --secret-id snykajtoken --query SecretString --output text').trim()
