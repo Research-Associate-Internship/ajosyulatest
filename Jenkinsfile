@@ -3,7 +3,7 @@ pipeline {
         label 'Jenkins-node'
     }
     environment {
-        SNYK_TOKEN= sh(returnStdout:true, script: 'aws secretsmanager get-secret-value --secret-id snykajtoken --query SecretString --output text').trim()
+        SNYK_TOKEN = credentials('snykajtoken')
     }
     stages {
         stage('checkout') {
@@ -11,9 +11,14 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Research-Associate-Internship/ajosyulatest.git']])
             }
         }
-        stage('build') {
+        /*stage('build') {
             steps {
                 sh 'npm install'
+            }
+        }*/
+        stage('fetching-secrets') {
+            steps {
+                echo env.SNYK_TOKEN
             }
         }
         /*stage('sast-testing') { 
@@ -22,7 +27,7 @@ pipeline {
                 }
                 
             }*/
-        stage('sast-testing') {
+        /*stage('sast-testing') {
             steps {
                 sh """
                 set +x
@@ -30,7 +35,7 @@ pipeline {
                 snyk test --json | snyk-to-html > /home/ubuntu/Snyk_Report_${BUILD_ID}.html
                 """
                 }
-            }
+            }*/
         }
         }
         /*stage('run-application') {
