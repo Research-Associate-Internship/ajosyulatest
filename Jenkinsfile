@@ -11,22 +11,26 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Research-Associate-Internship/ajosyulatest.git']])
             }
         }
-        stage('build') {
+        /*stage('build') {
             steps {
                 sh 'npm install'
             }
-        }
+        }*/
         stage('fetching-secrets') {
             steps {
-                echo env.SNYK_TOKEN
+                script {
+                    sh 'token = ${env.SNYK_TOKEN}'
+                    sh 'echo $token'
+
+                }
             }
         }
-        stage('sast-testing') { 
+        /*stage('sast-testing') { 
             steps {
                 snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: env.SNYK_TOKEN
                 }
                 
-            }
+            }*/
         /*stage('sast-testing') {
             steps {
                 sh """
