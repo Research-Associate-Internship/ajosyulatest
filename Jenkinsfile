@@ -16,29 +16,29 @@ pipeline {
                 sh 'npm install'
             }
         }*/
-        stage('fetching-secrets') {
+        /*stage('fetching-secrets') {
             steps {
                 script {
                     dev token = env.SNYK_TOKEN
                     sh "echo \$$token"
                 }
             }
-        }
+        }*/
         /*stage('sast-testing') { 
             steps {
                 snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: env.SNYK_TOKEN
                 }
                 
             }*/
-        /*stage('sast-testing') {
+        stage('sast-testing') {
             steps {
                 sh """
-                set +x
+                #set +x
                 snyk auth ${env.SNYK_TOKEN}
-                snyk test --json | snyk-to-html > /home/ubuntu/Snyk_Report_${BUILD_ID}.html
+                #snyk test --json | snyk-to-html > /home/ubuntu/Snyk_Report_${BUILD_ID}.html
                 """
                 }
-            }*/
+            }
         }
         }
         /*stage('run-application') {
