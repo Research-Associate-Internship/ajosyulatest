@@ -19,9 +19,8 @@ pipeline {
         stage('fetching-secrets') {
             steps {
                 script {
-                    sh 'token = env.SNYK_TOKEN'
-                    sh 'echo $token'
-
+                    dev token = env.SNYK_TOKEN
+                    sh "echo \$$token"
                 }
             }
         }
