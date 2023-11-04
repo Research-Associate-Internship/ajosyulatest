@@ -21,7 +21,7 @@ pipeline {
                 snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: '${SNYK_TOKEN}'
                 }
                 
-            }
+        }
         /*stage('sast-testing') {
             steps {
                 sh """
