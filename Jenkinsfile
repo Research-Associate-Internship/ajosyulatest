@@ -11,29 +11,27 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Research-Associate-Internship/ajosyulatest.git']])
             }
         }
-        /*stage('build') {
+        stage('build') {
             steps {
                 sh 'npm install'
             }
-        }*/
-        stage('sast-testing') { 
+        }
+        // This is Jenkins generated Snyk code
+        /*stage('sast-testing') { 
             steps {
                 snykSecurity failOnIssues: false, projectName: 'juice-shop', snykInstallation: 'SnykJ', snykTokenId: '${env.SNYK_TOKEN}'
                 }
                 
-        }
-        /*stage('sast-testing') {
+        }*/
+        stage('sast-testing') {
             steps {
                 sh """
-                #set +x
                 snyk auth ${env.SNYK_TOKEN}
                 #snyk test --json | snyk-to-html > /home/ubuntu/Snyk_Report_${BUILD_ID}.html
                 """
                 }
-            }*/
-        }
-        }
-        /*stage('run-application') {
+            }
+        stage('run-application') {
             steps {
                 sh 'docker run -d -p 80:3000 --name owasp bkimminich/juice-shop'
             }
@@ -50,8 +48,8 @@ pipeline {
                 sh 'docker rm $(docker ps -a -q)'
             }
         }*/
-    /*}*/
-    /*post {
+    }
+    post {
         always {
             publishHTML(target: [
                 allowMissing:false,
@@ -62,4 +60,4 @@ pipeline {
                 reportName: 'OWASP_ZAP_Scan_Report'
                 ])
         }
-    }*/
+    }
