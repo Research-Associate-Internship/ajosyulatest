@@ -4,9 +4,9 @@ pipeline {
     agent {
         label 'ajtest-node'
     }
-    environment {
+    /*environment {
         SNYK_TOKEN = credentials('snykajtoken')
-    }
+    }*/
     stages {
         stage('checkout') {
             steps {
@@ -27,11 +27,13 @@ pipeline {
         }*/
         stage('sast-testing') {
             steps {
+                withCredentials([string(credentialsId: 'snykajtoken', variable: 'SNYK_TOKEN')]) {
                 sh """
-                snyk auth ${env.SNYK_TOKEN}
+                snyk auth $SNYK_TOKEN
                 #snyk test --json | snyk-to-html > /home/ubuntu/Snyk_Report_${BUILD_ID}.html
                 """
                 }
+            }
             }
         stage('run-application') {
             steps {
