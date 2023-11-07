@@ -35,7 +35,9 @@ pipeline {
                 }
             }
             }
-        stage('run-application') {
+    }
+}
+        /*stage('run-application') {
             steps {
                 sh 'docker run -d -p 80:3000 --name owasp bkimminich/juice-shop'
             }
@@ -51,7 +53,7 @@ pipeline {
                 sh 'docker stop $(docker ps -q)'
                 sh 'docker rm $(docker ps -a -q)'
             }
-        }*/
+        }
     }
     post {
         always {
@@ -64,4 +66,4 @@ pipeline {
                 reportName: 'OWASP_ZAP_Scan_Report'
                 ])
         }
-    }
+    }*/
