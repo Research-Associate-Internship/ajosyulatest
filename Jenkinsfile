@@ -30,7 +30,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'snykajtoken', variable: 'SNYK_TOKEN')]) {
                 sh """
                 snyk auth $SNYK_TOKEN
-                #snyk test --json | snyk-to-html > /home/ubuntu/Snyk_Report_${BUILD_ID}.html
+                snyk test --json | snyk-to-html > /home/ubuntu/Snyk_Report_${BUILD_ID}.html
                 """
                 }
             }
