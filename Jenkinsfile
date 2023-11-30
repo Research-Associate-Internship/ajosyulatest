@@ -61,7 +61,7 @@ pipeline {
                 keepAll:true,
                 reportDir:'/home/ubuntu/security_reports',
                 reportFiles: 'JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}.html, Snyk_Report_${BUILD_ID}.html',
-                reportName: 'OWASP_ZAP_Scan_Report'
+                reportName: 'OWASP_ZAP_Scan_Report, SNYK_REPORT'
                 ])
         }
     }
