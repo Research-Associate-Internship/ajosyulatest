@@ -30,21 +30,19 @@ pipeline {
                 withCredentials([string(credentialsId: 'snykajtoken', variable: 'SNYK_TOKEN')]) {
                 sh """
                 snyk auth $SNYK_TOKEN
-                snyk test --json | snyk-to-html > /home/ubuntu/Snyk_Report_${BUILD_ID}.html
+                snyk test --json | snyk-to-html > /home/ubuntu/security_reports/Snyk_Report_${BUILD_ID}.html
                 """
                 }
             }
             }
-    }
-}
-        /*stage('run-application') {
+        stage('run-application') {
             steps {
                 sh 'docker run -d -p 80:3000 --name owasp bkimminich/juice-shop'
             }
         }
         stage('dast-testing') {
             steps {
-                sh 'cd /usr/share/owasp-zap; ./zap.sh -cmd -quickurl http://3.231.214.33:80 -quickout /home/ubuntu/zap_reports/JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}.html -quickprogress'
+                sh 'cd /usr/share/owasp-zap; ./zap.sh -cmd -quickurl http:3.80.11.52//:80 -quickout /home/ubuntu/security_reports/JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}.html -quickprogress'
                 
             }
         }
@@ -61,9 +59,10 @@ pipeline {
                 allowMissing:false,
                 alwaysLinkToLastBuild:true,
                 keepAll:true,
-                reportDir:'/home/ubuntu/zap_reports',
-                reportFiles: 'JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}.html',
+                reportDir:'/home/ubuntu/security_reports',
+                reportFiles: 'JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}.html', 'Snyk_Report_${BUILD_ID}.html',
                 reportName: 'OWASP_ZAP_Scan_Report'
                 ])
         }
-    }*/
+    }
+}
