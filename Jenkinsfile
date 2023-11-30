@@ -42,7 +42,7 @@ pipeline {
         }
         stage('dast-testing') {
             steps {
-                sh 'cd /usr/share/owasp-zap; ./zap.sh -cmd -quickurl http:3.80.11.52//:80 -quickout /home/ubuntu/security_reports/JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}.html -quickprogress'
+                sh 'cd /usr/share/owasp-zap; ./zap.sh -cmd -quickurl http://3.80.11.52//:80 -quickout /home/ubuntu/security_reports/JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}.html -quickprogress'
                 
             }
         }
